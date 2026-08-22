@@ -15,7 +15,7 @@ class UpdateTask(BaseModel):
     title: str = Field(min_length=1, max_length=200)
     done: bool = False
 
-class TaskDone(BaseModel):
+class TaskOut(BaseModel):
     id: int 
     title: str
     done: bool
@@ -29,7 +29,7 @@ def root():
 def get_all_tasks():
     return tasks_db 
 
-@app.post("/tasks")
+@app.post("/tasks", response_model=TaskOut)
 def create_task(task: CreateTask):
     global next_id
     new_task = {"id": next_id, "title": task.title, "done": task.done}
@@ -37,13 +37,13 @@ def create_task(task: CreateTask):
     next_id += 1
     return new_task
 
-@app.get("/tasks/{id}")
+@app.get("/tasks/{id}", response_model=TaskOut)
 def get_specific_task(id: int):
     if id not in tasks_db:
         raise HTTPException(status_code=404, detail="Item not found")
     return tasks_db[id]
 
-@app.put("/tasks/{id}")
+@app.put("/tasks/{id}", response_model=TaskOut)
 def edit_task(id: int, task: UpdateTask):
     if id not in tasks_db:
         raise HTTPException(status_code=404, detail="Item not found")
