@@ -30,9 +30,23 @@ Will evolve over time.
 - Frontend `.gitignore` configured
 - Project folder structure (backend, frontend)
 
+## Phase 2: Database Integration
+
+- Migrated from in-memory storage to SQLite via SQLAlchemy
+- All task endpoints now read/write through the database
+
+## Phase 3: Projects
+
+- Added a `Project` table (`id`, `name`, `created_at`)
+- Tasks now belong to a project via a `project_id` foreign key
+- New project endpoints:
+  - `GET /projects` - Retrieve all projects
+  - `POST /projects` - Create new project
+  - `GET /projects/{id}/tasks` - Get all tasks for a specific project
+- `CreateTask` now requires a `project_id`
+
 ### Next Steps
 
-- Add database integration (currently using in-memory storage)
 - Implement frontend UI components
 - Add CORS configuration for backend-frontend communication
 - Production-level refactoring and improvements
