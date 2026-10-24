@@ -4,7 +4,7 @@ from database import get_db, init_db, Task as TaskModel, Project as ProjectModel
 from sqlalchemy.orm import Session
 
 #initializes database
-init_db()
+# init_db()
 
 app = FastAPI()
 

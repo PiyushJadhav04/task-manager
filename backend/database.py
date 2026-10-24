@@ -2,9 +2,14 @@
 
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+import os 
+from dotenv import load_dotenv
 from datetime import datetime
 
-DATABASE_URL = "sqlite:///tasks.db"
+load_dotenv()
+
+DATABASE_URL = os.environ["DATABASE_URL"]
+
 
 # sets up connection and where to locate the database file
 engine = create_engine(DATABASE_URL)
